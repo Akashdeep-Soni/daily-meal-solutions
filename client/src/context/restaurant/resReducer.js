@@ -10,7 +10,8 @@ import {
   GET_ALL_RES,
   SET_LOADING,
   CLEAR_RESTAURANT,
-  SET_RESTAURANT
+  SET_RESTAURANT,
+  GET_RES_ORDERS,
 } from "../types";
 
 export default (state, action) => {
@@ -19,18 +20,18 @@ export default (state, action) => {
       return {
         ...state,
         restaurants: [...state.restaurants, action.payload.restaurant],
-        orders: null
+        orders: null,
       };
     case UPDATE_RESTAURANT:
       return {
         ...state,
-        restaurants: state.restaurants.map(restaurant =>
+        restaurants: state.restaurants.map((restaurant) =>
           restaurant._id === action.payload.restaurant._id
             ? action.payload.restaurant
             : restaurant
         ),
         restaurant: null,
-        loading: false
+        loading: false,
       };
     case SUBMIT_ORDER:
       return state;
@@ -40,7 +41,7 @@ export default (state, action) => {
         restaurants: action.payload.restaurants,
         loading: false,
         dishes: null,
-        orders: null
+        orders: null,
       };
     case GET_MY_RES:
       return {
@@ -48,7 +49,7 @@ export default (state, action) => {
         restaurants: action.payload.restaurant,
         loading: false,
         error: null,
-        orders: null
+        orders: null,
       };
     case GET_MY_DISHES:
       return {
@@ -57,20 +58,27 @@ export default (state, action) => {
         dishes: action.payload.restaurant.dishes,
         loading: false,
         error: null,
-        orders: null
+        orders: null,
       };
     case GET_MY_ORDERS:
       return {
         ...state,
         orders: action.payload.orders,
         loading: false,
-        error: null
+        error: null,
       };
     case SET_RESTAURANT:
       return {
         ...state,
         loading: false,
-        restaurant: action.payload
+        restaurant: action.payload,
+      };
+    case GET_RES_ORDERS:
+      return {
+        ...state,
+        orders: action.payload.orders,
+        loading: false,
+        error: null,
       };
     case CLEAR_RES:
       return {
@@ -79,22 +87,22 @@ export default (state, action) => {
         dishes: null,
         restaurant: null,
         error: null,
-        orders: null
+        orders: null,
       };
     case CLEAR_RESTAURANT:
       return {
         ...state,
-        restaurant: null
+        restaurant: null,
       };
     case ERROR:
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       };
     case SET_LOADING:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
 
     default:

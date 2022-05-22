@@ -49,15 +49,24 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="purple darken-3">
-      <div className="nav-wrapper">
+    <nav className="transparent darken-3 finalImage">
+      <div
+        className="nav-wrapper"
+        style={{
+          backgroundColor: "#0e745f",
+        }}
+      >
         <div className="container">
           {authContext.isAuthenticated === true && (
-            <a href="#" data-target="slide-out" class="sidenav-trigger">
-              <i class="material-icons">menu</i>
+            <a href="#" data-target="slide-out" className="sidenav-trigger">
+              <i className="material-icons">menu</i>
             </a>
           )}
-          <Link to="/" className="brand-logo">
+          <Link
+            to="/"
+            className="brand-logo"
+            style={{ fontFamily: "Tahoma", textShadow: "2px 2px black" }}
+          >
             Daily Meal Solutions
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">

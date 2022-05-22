@@ -2,10 +2,15 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ResContext from "../../context/restaurant/resContext";
+import authContext from "../../context/auth/authContext";
 
 const RestaurantItem = ({ restaurant }) => {
   const { _id, name, address, contactNumber, description, cuisine } =
     restaurant;
+
+  const {
+    user: { role },
+  } = useContext(authContext);
 
   const resContext = useContext(ResContext);
   const { setRestaurant } = resContext;
@@ -15,7 +20,7 @@ const RestaurantItem = ({ restaurant }) => {
   };
 
   return (
-    <div id="my-restaurant" className="card pink darken-4">
+    <div id="my-card" className="card  darken-4">
       <div className="card-content white-text">
         <div className="flow-text center">{name}</div>
         <blockquote>
@@ -27,7 +32,7 @@ const RestaurantItem = ({ restaurant }) => {
           </p>
         </blockquote>
         <div className="">
-          <div className="activator btn-floating right">
+          <div className="activator btn-floating pink right">
             <i className="material-icons center">vertical_align_top</i>
           </div>
         </div>
@@ -37,14 +42,11 @@ const RestaurantItem = ({ restaurant }) => {
           <Link className="white-text" to={`/res/${_id}`}>
             View Dishes
           </Link>
-          {/* <Link className="amber-accent-3-text" to={`/res/my/${_id}`}>
-            View Orders
-          </Link> */}
           <a
             id="add"
-            className="btn-flat modal-trigger"
+            className="btn transparent"
             href="#restaurant"
-            style={{ background: "green" }}
+            style={{ outline: "1px solid pink" }}
             onClick={onEdit}
           >
             Edit
@@ -61,6 +63,17 @@ const RestaurantItem = ({ restaurant }) => {
           {description}
         </p>
       </div>
+
+      {role === "restaurant" && (
+        <Link to={`/res/${_id}/orders`}>
+          <a
+            className="waves-effect waves-light pink btn"
+            style={{ width: "100%" }}
+          >
+            View Orders
+          </a>
+        </Link>
+      )}
     </div>
   );
 };

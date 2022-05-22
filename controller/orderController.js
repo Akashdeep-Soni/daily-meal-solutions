@@ -9,7 +9,7 @@ exports.createOrder = async (req, res) => {
       amount,
       resName,
       user,
-      dishData
+      dishData,
     });
     res.status(200).json({ status: "success", data: { order } });
   } catch (err) {

@@ -17,6 +17,7 @@ import AllRestaurants from "./components/Restaurant&Dishes/AllRestaurants";
 import NotFound from "./components/NotFound";
 import AuthContext from "./context/auth/authContext";
 import SideNav from "./components/layout/SideNav";
+import RestaurantOrders from "./components/Restaurant&Dishes/RestaurantOrders";
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.token);
@@ -49,6 +50,11 @@ function App() {
                   component={AllRestaurants}
                 />
                 <PrivateRoute exact path="/res/:id" component={DishCards} />
+                <PrivateRoute
+                  exact
+                  path="/res/:id/orders"
+                  component={RestaurantOrders}
+                />
                 {isAuthenticated !== null && (
                   <Route path="*" component={NotFound} />
                 )}

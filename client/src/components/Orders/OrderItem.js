@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import authContext from "../../context/auth/authContext";
 
 const OrderItem = ({ order }) => {
-  const { amount, resName, dishData } = order;
+  console.log(order);
+  const {
+    amount,
+    resName,
+    dishData,
+    user: { name, email },
+  } = order;
+
+  const {
+    user: { role },
+  } = useContext(authContext);
 
   return (
     <div id="order-item" className="card pink darken-4">
       <div className="card-content white-text">
-        <div className="flow-text center">Rs. {amount}</div>
+        <div className="flow-text center">Amount: ₹{amount}</div>
+        {role === "restaurant" && (
+          <div className="flow-text center">
+            Ordered by: {name} | {email}
+          </div>
+        )}
         <blockquote>
           <p style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>
             {resName}
@@ -17,7 +33,7 @@ const OrderItem = ({ order }) => {
       <div className="card-action">
         <span
           style={{ width: "100%" }}
-          className="green activator btn center"
+          className="activator btn pink center"
           data-target={order._id}
         >
           View Order
@@ -29,7 +45,7 @@ const OrderItem = ({ order }) => {
         </span>
         <ul className="collection">
           {dishData.map(
-            data =>
+            (data) =>
               data.quantity > 0 && (
                 <li key={data.dish._id} className="collection-item">
                   {data.dish.name}
@@ -44,7 +60,7 @@ const OrderItem = ({ order }) => {
 };
 
 OrderItem.propTypes = {
-  order: PropTypes.object.isRequired
+  order: PropTypes.object.isRequired,
 };
 
 export default OrderItem;

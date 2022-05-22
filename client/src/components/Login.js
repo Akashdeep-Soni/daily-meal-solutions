@@ -4,10 +4,10 @@ import Alerts from "./Alerts";
 import AlertContext from "../context/alert/alertContext";
 import AuthContext from "../context/auth/authContext";
 
-const Login = props => {
+const Login = (props) => {
   const [user, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const authContext = useContext(AuthContext);
@@ -28,17 +28,17 @@ const Login = props => {
     }
   }, [error, isAuthenticated, props.history]);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     login(user);
   };
 
   return (
-    <div className="form-container container">
+    <div className="form-container container initialImage">
       <div className="card">
         <Alerts />
         <div className="card-content">
@@ -68,7 +68,7 @@ const Login = props => {
                 <label htmlFor="password">Password</label>
               </div>
               <button
-                className="btn waves-effect green darken-4 submitBtn"
+                className="btn waves-effect pink darken-4 submitBtn"
                 type="submit"
                 value="Login"
               >

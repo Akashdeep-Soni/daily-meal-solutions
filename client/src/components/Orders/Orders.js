@@ -22,19 +22,13 @@ const Orders = () => {
     return <h4>Please place order/(s)</h4>;
   } else {
     return (
-      <div className="section-grid-2" style={OrderStyle}>
+      <div className="justify-center">
         {orders &&
           orders.length > 0 &&
-          orders.map(order => <OrderItem key={order._id} order={order} />)}
+          orders.map((order) => <OrderItem key={order._id} order={order} />)}
       </div>
     );
   }
-};
-
-const OrderStyle = {
-  display: "grid",
-  gridTemplateColumns: "repeat(4, 1fr)",
-  gridGap: "1rem"
 };
 
 export default Orders;

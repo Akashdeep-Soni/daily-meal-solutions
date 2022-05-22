@@ -80,11 +80,11 @@ exports.getMyRes = async (req, res) => {
 };
 
 exports.getAllOrders = async (req, res) => {
-    // console.log(req.params.id);
+  // console.log(req.params.id);
   try {
-    const orders = await Order.find({ restaurant: req.params.id }).populate(
-      "dishData.dish"
-    );
+    const orders = await Order.find({ restaurant: req.params.id })
+      .populate("dishData.dish")
+      .populate("user");
     res.status(200).json({ status: "success", data: { orders } });
   } catch (err) {
     console.log(err.message);

@@ -5,13 +5,13 @@ import AuthContext from "../context/auth/authContext";
 import AlertContext from "../context/alert/alertContext";
 import Alerts from "./Alerts";
 
-const Register = props => {
+const Register = (props) => {
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    role: "null"
+    role: "null",
   });
 
   const authContext = useContext(AuthContext);
@@ -35,15 +35,15 @@ const Register = props => {
     M.FormSelect.init(document.querySelector("select"));
   }, [error, isAuthenticated, props.history]);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleSelectChange = e => {
+  const handleSelectChange = (e) => {
     setUser({ ...user, role: e.target.value });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setAlert("Passwords do not match", "primary");
@@ -57,7 +57,7 @@ const Register = props => {
   };
 
   return (
-    <div className="form-container container">
+    <div className="form-container container initialImage">
       <div className="card">
         <Alerts />
         <div className="card-content">

@@ -20,7 +20,7 @@ const DishCardItem = ({ dish }) => {
 };
 
 DishCardItem.propTypes = {
-  dish: PropTypes.object.isRequired
+  dish: PropTypes.object.isRequired,
 };
 
 export default DishCardItem;

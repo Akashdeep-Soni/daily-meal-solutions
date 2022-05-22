@@ -15,17 +15,18 @@ import {
   GET_MY_DISHES,
   GET_MY_RES,
   SET_LOADING,
-  GET_MY_ORDERS
+  GET_MY_ORDERS,
+  GET_RES_ORDERS,
 } from "../types";
 
-const ResState = props => {
+const ResState = (props) => {
   const initialState = {
     restaurants: null,
     restaurant: null,
     dishes: null,
     orders: null,
     loading: false,
-    error: null
+    error: null,
   };
 
   const [state, dispatch] = useReducer(ResReducer, initialState);
@@ -42,79 +43,92 @@ const ResState = props => {
       const res = await axios.get("/api/res");
       dispatch({
         type: GET_ALL_RES,
-        payload: res.data.data
+        payload: res.data.data,
       });
     } catch (err) {
       console.log(err.response.data.msg);
       dispatch({
         type: ERROR,
-        payload: err.response.data.msg
+        payload: err.response.data.msg,
       });
     }
   };
 
+  const getAllResOrders = async (id) => {
+    console.log({ id });
+    setLoading();
+    try {
+      const res = await axios.get(`/api/restaurant/my/${id}`);
+      console.log({ res });
+      dispatch({
+        type: GET_RES_ORDERS,
+        payload: res.data.data,
+      });
+    } catch (err) {}
+  };
+
   // Create Restaurant
-  const createRes = async resData => {
+  const createRes = async (resData) => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       };
       const res = await axios.post("/api/res", resData, config);
       dispatch({
         type: CREATE_RES,
-        payload: res.data.data
+        payload: res.data.data,
       });
     } catch (err) {
       console.log(err.response.data.msg);
       dispatch({
         type: ERROR,
-        payload: err.response.data.msg
+        payload: err.response.data.msg,
       });
     }
   };
 
   // Update Restaurant
-  const updateRestaurant = async resData => {
+  const updateRestaurant = async (resData) => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       };
       const res = await axios.patch(`/api/res/${resData._id}`, resData, config);
       dispatch({
         type: UPDATE_RESTAURANT,
-        payload: res.data.data
+        payload: res.data.data,
       });
     } catch (err) {
       console.log(err.response.data.msg);
       dispatch({
         type: ERROR,
-        payload: err.response.data.msg
+        payload: err.response.data.msg,
       });
     }
   };
 
   // Submit Order
-  const submitOrder = async orderData => {
+  const submitOrder = async (orderData) => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       };
       const res = await axios.post("/api/order", orderData, config);
       dispatch({
         type: SUBMIT_ORDER,
-        payload: res.data.data
+        payload: res.data.data,
       });
     } catch (err) {
       console.log(err.response.data.msg);
       dispatch({
         type: ERROR,
-        payload: err.response.data.msg
+        payload: err.response.data.msg,
       });
     }
   };
@@ -126,13 +140,13 @@ const ResState = props => {
       const res = await axios.get("/api/order/my");
       dispatch({
         type: GET_MY_ORDERS,
-        payload: res.data.data
+        payload: res.data.data,
       });
     } catch (err) {
       console.log(err.response.data.msg);
       dispatch({
         type: ERROR,
-        payload: err.response.data.msg
+        payload: err.response.data.msg,
       });
     }
   };
@@ -144,40 +158,40 @@ const ResState = props => {
       const res = await axios.get("/api/res/my");
       dispatch({
         type: GET_MY_RES,
-        payload: res.data.data
+        payload: res.data.data,
       });
     } catch (err) {
       console.log(err.response.data.msg);
       dispatch({
         type: ERROR,
-        payload: err.response.data.msg
+        payload: err.response.data.msg,
       });
     }
   };
 
   // Get dishes of the restaurant
-  const getDishes = async id => {
+  const getDishes = async (id) => {
     setLoading();
     try {
       const res = await axios.get(`/api/res/${id}`);
       dispatch({
         type: GET_MY_DISHES,
-        payload: res.data.data
+        payload: res.data.data,
       });
     } catch (err) {
       console.log(err.response.data.msg);
       dispatch({
         type: ERROR,
-        payload: err.response.data.msg
+        payload: err.response.data.msg,
       });
     }
   };
 
   // Set current restaurant
-  const setRestaurant = restaurant => {
+  const setRestaurant = (restaurant) => {
     dispatch({
       type: SET_RESTAURANT,
-      payload: restaurant
+      payload: restaurant,
     });
   };
 
@@ -200,6 +214,7 @@ const ResState = props => {
         error: state.error,
         orders: state.orders,
         dishes: state.dishes,
+        restaurantOrders: state.restaurantOrders,
         getAllRes,
         createRes,
         setRestaurant,
@@ -210,7 +225,8 @@ const ResState = props => {
         clearRes,
         clearRestaurant,
         getDishes,
-        setLoading
+        setLoading,
+        getAllResOrders,
       }}
     >
       {props.children}

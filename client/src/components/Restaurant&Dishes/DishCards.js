@@ -16,7 +16,7 @@ const DishCards = ({ match }) => {
   const [order, setOrder] = useState({
     amount: 0,
     resName: "",
-    data: []
+    data: [],
   });
 
   useEffect(() => {
@@ -27,25 +27,25 @@ const DishCards = ({ match }) => {
     if (user && user.role === "user" && dishes) {
       console.log("second useffect");
       const _order = [];
-      dishes.forEach(_dish => {
+      dishes.forEach((_dish) => {
         _order.push({
           dish: _dish._id,
           name: _dish.name,
           price: _dish.price,
-          quantity: 0
+          quantity: 0,
         });
       });
       setOrder({
         amount: 0,
         resName: restaurant.name,
-        data: [..._order]
+        data: [..._order],
       });
     }
   }, [dishes]);
 
   useEffect(() => {
     order.amount = 0;
-    order.data.forEach(data => {
+    order.data.forEach((data) => {
       data.quantity = data.quantity || 0;
       order.amount += data.quantity * data.price;
     });
@@ -66,8 +66,8 @@ const DishCards = ({ match }) => {
       data: [
         ..._order.slice(0, index),
         { ..._order[index], [e.target.name]: e.target.value },
-        ..._order.slice(index + 1)
-      ]
+        ..._order.slice(index + 1),
+      ],
     });
   };
 
@@ -84,7 +84,7 @@ const DishCards = ({ match }) => {
                   onEdit={onEdit}
                 />
               ))
-            : dishes.map(dish => <DishCardItem key={dish._id} dish={dish} />)}
+            : dishes.map((dish) => <DishCardItem key={dish._id} dish={dish} />)}
         </div>
         {user && user.role === "user" && (
           <div className="fixed-action-btn">
@@ -109,7 +109,7 @@ const DishCards = ({ match }) => {
 const DishStyle = {
   display: "grid",
   gridTemplateColumns: "repeat(5, 1fr)",
-  gridGap: "1rem"
+  gridGap: "1rem",
 };
 
 export default DishCards;

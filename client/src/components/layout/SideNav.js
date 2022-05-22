@@ -17,7 +17,7 @@ const SideNav = () => {
   };
 
   return (
-    <ul id="slide-out" class="sidenav sidenav-close">
+    <ul id="slide-out" className="sidenav sidenav-close">
       <li>
         <Link to="/res/all">All Restaurants</Link>
       </li>
@@ -30,7 +30,7 @@ const SideNav = () => {
         </Link>
       </li>
       <li>
-        <div class="divider"></div>
+        <div className="divider"></div>
       </li>
       <li>
         <a href="/" onClick={onLogout}>

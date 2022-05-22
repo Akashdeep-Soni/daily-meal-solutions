@@ -42,6 +42,8 @@ app.use(
 );
 app.use("/api/order", orderRoute);
 
+app.use("/api/restaurant", restaurantRoute);
+
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));
 
