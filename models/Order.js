@@ -14,7 +14,6 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "Restaurant",
     },
-
     user: {
       type: mongoose.Schema.ObjectId,
       required: true,

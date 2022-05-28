@@ -3,13 +3,14 @@ const Order = require("../models/Order");
 // Create Order
 exports.createOrder = async (req, res) => {
   try {
-    const { amount, resName, dishData } = req.body;
+    const { restaurant, amount, resName, dishData } = req.body;
     const user = req.user;
     const order = await Order.create({
       amount,
       resName,
       user,
       dishData,
+      restaurant,
     });
     res.status(200).json({ status: "success", data: { order } });
   } catch (err) {

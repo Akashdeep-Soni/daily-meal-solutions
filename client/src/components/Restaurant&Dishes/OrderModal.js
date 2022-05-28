@@ -1,9 +1,11 @@
 import React, { useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import ResContext from "../../context/restaurant/resContext";
 
 const OrderModal = props => {
   const { order } = props;
+  const { id } = useParams();
 
   useEffect(() => {
     const M = window.M;
@@ -16,6 +18,7 @@ const OrderModal = props => {
     let orderData = {
       amount: order.amount,
       resName: order.resName,
+      restaurant: id,
       dishData: []
     };
 
